@@ -4,6 +4,8 @@ import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 import { handleLogin } from './login';
+import SocialLogin from '@/components/social-login';
+import FormButton from '@/components/form-btn';
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(handleLogin, null);
@@ -26,16 +28,18 @@ export default function CreateAccount() {
       </form>
       <div className='w-full h-px bg-neutral-500' />
       <div>
-        <Link
-          className='primary-btn flex h-10 items-center justify-center gap-3'
-          href='/sms'
+        <span>
+          <ChatBubbleOvalLeftEllipsisIcon className='size-6' />
+        </span>
+        <button
+          disabled={pending}
+          className='primary-btn h-10 disabled:bg-neutral-400
+       disabled:text-neutral-300 disabled:cursor-not-allowed'
         >
-          <span>
-            <ChatBubbleOvalLeftEllipsisIcon className='size-6' />
-          </span>
-          <span>Sign up with SNS</span>
-        </Link>
+          {pending ? '로딩 중' : text}
+        </button>
       </div>
+      <SocialLogin />
     </div>
   );
 }

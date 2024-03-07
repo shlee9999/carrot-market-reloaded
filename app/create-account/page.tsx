@@ -1,14 +1,13 @@
 'use client';
-import FormButton from '@/components/form-btn';
-import Input from '@/components/form-input';
-import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
+import Button from '@/components/button';
+import Input from '@/components/input';
 import { useFormState } from 'react-dom';
 import { createAccount } from './actions';
 import SocialLogin from '@/components/social-login';
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
+  console.log(state);
   return (
     <div className='flex flex-col gap-10 py-8 px-6'>
       <div className='flex flex-col gap-2 *:font-medium'>
@@ -42,7 +41,7 @@ export default function CreateAccount() {
           errors={state?.fieldErrors.confirm_password}
           minLength={4}
         />
-        <FormButton text='Create account' />
+        <Button text='Create account' />
       </form>
       <SocialLogin />
     </div>

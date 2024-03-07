@@ -30,7 +30,7 @@ const formSchema = z
       .string()
       .min(PASSWORD_MIN_LENGTH)
       .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
-    confirm_password: z.string().min(4),
+    confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
   })
   .refine(
     ({ password, confirm_password }) =>

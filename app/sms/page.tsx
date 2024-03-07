@@ -1,28 +1,33 @@
-import FormButton from '@/components/form-btn';
-import FormInput from '@/components/form-input';
-import SocialLogin from '@/components/social-login';
+'use client';
+import Button from '@/components/button';
+import Input from '@/components/input';
+import { useFormState } from 'react-dom';
+import { smsVerification } from './actions';
 
 export default function SMSLogin() {
+  const [state, dispatch] = useFormState(smsVerification, null);
   return (
     <div className='flex flex-col gap-10 py-8 px-6'>
       <div className='flex flex-col gap-2 *:font-medium'>
         <h1 className='text-2xl'>SMS Login</h1>
         <h2>Verify your phone number.</h2>
       </div>
-      <form className='flex flex-col gap-3'>
-        <FormInput
+      <form action={dispatch} className='flex flex-col gap-3'>
+        <Input
           required
           type='number'
           placeholder='Phone number'
           errors={['']}
+          name='phone_number'
         />
-        <FormInput
+        <Input
           required
           type='number'
           placeholder='Verification Code'
           errors={['']}
+          name='verification_code'
         />
-        <FormButton text='Verify' loading={false} />
+        <Button text='Verify' />
       </form>
     </div>
   );

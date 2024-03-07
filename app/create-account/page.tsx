@@ -1,10 +1,10 @@
 'use client';
 import FormButton from '@/components/form-btn';
-import FormInput from '@/components/form-input';
+import Input from '@/components/form-input';
 import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
-import { createAccount } from './actios';
+import { createAccount } from './actions';
 
 export default function CreateAccount() {
   const [state, dispatch] = useFormState(createAccount, null);
@@ -15,29 +15,33 @@ export default function CreateAccount() {
         <h2>Fill in the form below to join!</h2>
       </div>
       <form action={dispatch} className='flex flex-col gap-3'>
-        <FormInput
+        <Input
           name='username'
           required
           type='text'
           placeholder='Username'
           errors={state?.fieldErrors.username}
+          minLength={3}
+          maxLength={10}
         />
-        <FormInput name='email' required type='email' placeholder='Email' />
-        <FormInput
+        <Input name='email' required type='email' placeholder='Email' />
+        <Input
           name='password'
           required
           type='password'
           placeholder='Password'
           errors={state?.fieldErrors.password}
+          minLength={4}
         />
-        <FormInput
+        <Input
           name='confirm_password'
           required
           type='password'
           placeholder='Confirm Password'
           errors={state?.fieldErrors.confirm_password}
+          minLength={4}
         />
-        <FormButton text='Create account' loading={false} />
+        <FormButton text='Create account' />
       </form>
       <div className='w-full h-px bg-neutral-500' />
       <div>

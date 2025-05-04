@@ -5,6 +5,7 @@ import {
   PASSWORD_REGEX_ERROR,
 } from '@/lib/constants';
 
+// object로 감싸 한 번에 여러개 검증 -> 오류 시 filedErrors 반환
 const formSchema = z.object({
   email: z.string().email().toLowerCase(),
   password: z
@@ -14,6 +15,7 @@ const formSchema = z.object({
     .min(PASSWORD_MIN_LENGTH)
     .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
 });
+
 export function handleLogin(previousState: any, formData: FormData) {
   const data = {
     email: formData.get('email'),

@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String? @unique// 휴대폰으로 로그인 시 email 존재 안할 수 있음
+  password String? // SNS 로그인 시 비밀번호 존재 안할 수 있음
+  phone String? @unique
+  github_id String? @unique
+  avatar String? // github 프로필 이미지
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

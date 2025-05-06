@@ -4,14 +4,40 @@ import {
   PASSWORD_REGEX,
   PASSWORD_REGEX_ERROR,
 } from '@/lib/constants';
+import db from '@/lib/db';
 import { z } from 'zod';
 
-function checkUsername(username: string) {
+const checkUsername = (username: string) => {
   return !username.includes('potato');
-}
-function checkPassword(password: string, confirm_password: string) {
+};
+const checkPassword = (password: string, confirm_password: string) => {
   return password === confirm_password;
-}
+};
+
+const checkUniqueUsername = async (username: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return !user;
+};
+
+const checkUniqueEmail = async (email: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return !user;
+};
+
 const formSchema = z
   .object({
     username: z
@@ -19,17 +45,26 @@ const formSchema = z
         invalid_type_error: 'Username must be a string!',
         required_error: 'Where is my username?????',
       })
-      .min(5, 'Way too short!!!')
+      // .min(5, 'Way too short!!!')
       .max(10, 'That is too looooong!')
       .toLowerCase()
       .trim()
-      .transform((username) => `🔥${username}🔥`)
-      .refine((username) => checkUsername(username), 'No potatoes allowed!'),
-    email: z.string().email().toLowerCase(),
-    password: z
+      // .transform((username) => `🔥${username}🔥`)
+      .refine((username) => checkUsername(username), 'No potatoes allowed!')
+      .refine(
+        (username) => checkUniqueUsername(username),
+        '이미 존재하는 username입니다!'
+      ),
+    email: z
       .string()
-      .min(PASSWORD_MIN_LENGTH)
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+      .email()
+      .toLowerCase()
+      .refine(
+        (email) => checkUniqueEmail(email),
+        '이미 존재하는 이메일입니다!'
+      ),
+    password: z.string().min(PASSWORD_MIN_LENGTH),
+    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
     confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
   })
   .refine(
@@ -48,12 +83,19 @@ export async function createAccount(prevState: any, formData: FormData) {
     password: formData.get('password'),
     confirm_password: formData.get('confirm_password'),
   };
-  console.log(data);
-  const result = formSchema.safeParse(data);
+  // console.log(data);
+  const result = await formSchema.safeParseAsync(data); // 모든 refine 함수에 대해 async 처리
+  //* validation 실패 시
   if (!result.success) {
     console.log(result.error.flatten());
     return result.error.flatten();
-  } else {
-    console.log(result.data);
   }
+  //* validation 성공 시
+
+  // username 이미 존재하는지 확인
+  // 이메일 이미 존재하는지 확인
+  // 비밀번호 해싱
+  // user db에 저장
+  // user 로그인
+  // home으로 리다이렉트
 }

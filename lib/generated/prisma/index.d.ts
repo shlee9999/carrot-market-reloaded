@@ -2389,6 +2389,13 @@ export namespace Prisma {
   export type $SMSTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SMSToken"
     objects: {
+      /**
+       * Cascade: 부모 데이터가 삭제될 때 자식 데이터도 함께 삭제됨. User가 삭제될 때 SMSToken도 함께 삭제되도록 함.
+       *     SetNull: 부모 데이터가 삭제될 때 자식 데이터의 부모 참조(user, userId) 를 null로 설정함. user, userId 둘 다 optional로 설정해야 함.
+       *     NoAction: 부모 데이터가 삭제될 때 자식 데이터에 대한 액션을 하지 않음.
+       *     Restrict: 부모 레코드가 참조되고 있는 동안 삭제 불가. SMSToken이 user와 연결되어 있는 동안 삭제 불가.
+       *     Default: 부모 데이터가 삭제될 때 자식 데이터의 기본값을 사용함.
+       */
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{

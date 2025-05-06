@@ -15,13 +15,23 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String?  @unique // 휴대폰으로 로그인 시 email 존재 안할 수 있음
+  id         Int        @id @default(autoincrement())
+  username   String     @unique
+  email      String?    @unique // 휴대폰으로 로그인 시 email 존재 안할 수 있음
   password   String? // SNS 로그인 시 비밀번호 존재 안할 수 있음
-  phone      String?  @unique
-  github_id  String?  @unique
+  phone      String?    @unique
+  github_id  String?    @unique
   avatar     String? // github 프로필 이미지
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  SMSToken   SMSToken[]
+}
+
+model SMSToken {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id]) //* 실제로는 userId가 저장
+  userId     Int //* User와 SMSToken 연결
 }

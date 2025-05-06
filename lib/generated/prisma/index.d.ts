@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model SMSToken
+ * 
+ */
+export type SMSToken = $Result.DefaultSelection<Prisma.$SMSTokenPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sMSToken`: Exposes CRUD operations for the **SMSToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SMSTokens
+    * const sMSTokens = await prisma.sMSToken.findMany()
+    * ```
+    */
+  get sMSToken(): Prisma.SMSTokenDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    SMSToken: 'SMSToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "sMSToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      SMSToken: {
+        payload: Prisma.$SMSTokenPayload<ExtArgs>
+        fields: Prisma.SMSTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SMSTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SMSTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.SMSTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SMSTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          findMany: {
+            args: Prisma.SMSTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>[]
+          }
+          create: {
+            args: Prisma.SMSTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          createMany: {
+            args: Prisma.SMSTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SMSTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.SMSTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          update: {
+            args: Prisma.SMSTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.SMSTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SMSTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SMSTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.SMSTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SMSTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.SMSTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSMSToken>
+          }
+          groupBy: {
+            args: Prisma.SMSTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SMSTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SMSTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<SMSTokenCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    sMSToken?: SMSTokenOmit
   }
 
   /* Types for Logging */
@@ -863,6 +954,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    SMSToken: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    SMSToken?: boolean | UserCountOutputTypeCountSMSTokenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSMSTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SMSTokenWhereInput
+  }
 
 
   /**
@@ -1099,6 +1220,8 @@ export namespace Prisma {
     avatar?: boolean
     created_at?: boolean
     updated_at?: boolean
+    SMSToken?: boolean | User$SMSTokenArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1138,10 +1261,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "phone" | "github_id" | "avatar" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    SMSToken?: boolean | User$SMSTokenArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      SMSToken: Prisma.$SMSTokenPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       username: string
@@ -1546,6 +1677,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    SMSToken<T extends User$SMSTokenArgs<ExtArgs> = {}>(args?: Subset<T, User$SMSTokenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1601,6 +1733,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1619,6 +1755,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1636,6 +1776,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1685,6 +1829,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1733,6 +1881,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1775,6 +1927,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1821,6 +1977,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1888,6 +2048,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1914,6 +2078,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1934,6 +2102,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.SMSToken
+   */
+  export type User$SMSTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    where?: SMSTokenWhereInput
+    orderBy?: SMSTokenOrderByWithRelationInput | SMSTokenOrderByWithRelationInput[]
+    cursor?: SMSTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SMSTokenScalarFieldEnum | SMSTokenScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1945,6 +2137,1104 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SMSToken
+   */
+
+  export type AggregateSMSToken = {
+    _count: SMSTokenCountAggregateOutputType | null
+    _avg: SMSTokenAvgAggregateOutputType | null
+    _sum: SMSTokenSumAggregateOutputType | null
+    _min: SMSTokenMinAggregateOutputType | null
+    _max: SMSTokenMaxAggregateOutputType | null
+  }
+
+  export type SMSTokenAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type SMSTokenSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type SMSTokenMinAggregateOutputType = {
+    id: number | null
+    token: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    userId: number | null
+  }
+
+  export type SMSTokenMaxAggregateOutputType = {
+    id: number | null
+    token: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    userId: number | null
+  }
+
+  export type SMSTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    created_at: number
+    updated_at: number
+    userId: number
+    _all: number
+  }
+
+
+  export type SMSTokenAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type SMSTokenSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type SMSTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    created_at?: true
+    updated_at?: true
+    userId?: true
+  }
+
+  export type SMSTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    created_at?: true
+    updated_at?: true
+    userId?: true
+  }
+
+  export type SMSTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    created_at?: true
+    updated_at?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type SMSTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SMSToken to aggregate.
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SMSTokens to fetch.
+     */
+    orderBy?: SMSTokenOrderByWithRelationInput | SMSTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SMSTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SMSTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SMSTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SMSTokens
+    **/
+    _count?: true | SMSTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SMSTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SMSTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SMSTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SMSTokenMaxAggregateInputType
+  }
+
+  export type GetSMSTokenAggregateType<T extends SMSTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateSMSToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSMSToken[P]>
+      : GetScalarType<T[P], AggregateSMSToken[P]>
+  }
+
+
+
+
+  export type SMSTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SMSTokenWhereInput
+    orderBy?: SMSTokenOrderByWithAggregationInput | SMSTokenOrderByWithAggregationInput[]
+    by: SMSTokenScalarFieldEnum[] | SMSTokenScalarFieldEnum
+    having?: SMSTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SMSTokenCountAggregateInputType | true
+    _avg?: SMSTokenAvgAggregateInputType
+    _sum?: SMSTokenSumAggregateInputType
+    _min?: SMSTokenMinAggregateInputType
+    _max?: SMSTokenMaxAggregateInputType
+  }
+
+  export type SMSTokenGroupByOutputType = {
+    id: number
+    token: string
+    created_at: Date
+    updated_at: Date
+    userId: number
+    _count: SMSTokenCountAggregateOutputType | null
+    _avg: SMSTokenAvgAggregateOutputType | null
+    _sum: SMSTokenSumAggregateOutputType | null
+    _min: SMSTokenMinAggregateOutputType | null
+    _max: SMSTokenMaxAggregateOutputType | null
+  }
+
+  type GetSMSTokenGroupByPayload<T extends SMSTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SMSTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SMSTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SMSTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], SMSTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SMSTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sMSToken"]>
+
+  export type SMSTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sMSToken"]>
+
+  export type SMSTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sMSToken"]>
+
+  export type SMSTokenSelectScalar = {
+    id?: boolean
+    token?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    userId?: boolean
+  }
+
+  export type SMSTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "created_at" | "updated_at" | "userId", ExtArgs["result"]["sMSToken"]>
+  export type SMSTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SMSTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SMSTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SMSTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SMSToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      token: string
+      created_at: Date
+      updated_at: Date
+      userId: number
+    }, ExtArgs["result"]["sMSToken"]>
+    composites: {}
+  }
+
+  type SMSTokenGetPayload<S extends boolean | null | undefined | SMSTokenDefaultArgs> = $Result.GetResult<Prisma.$SMSTokenPayload, S>
+
+  type SMSTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SMSTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SMSTokenCountAggregateInputType | true
+    }
+
+  export interface SMSTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SMSToken'], meta: { name: 'SMSToken' } }
+    /**
+     * Find zero or one SMSToken that matches the filter.
+     * @param {SMSTokenFindUniqueArgs} args - Arguments to find a SMSToken
+     * @example
+     * // Get one SMSToken
+     * const sMSToken = await prisma.sMSToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SMSTokenFindUniqueArgs>(args: SelectSubset<T, SMSTokenFindUniqueArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SMSToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SMSTokenFindUniqueOrThrowArgs} args - Arguments to find a SMSToken
+     * @example
+     * // Get one SMSToken
+     * const sMSToken = await prisma.sMSToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SMSTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, SMSTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SMSToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenFindFirstArgs} args - Arguments to find a SMSToken
+     * @example
+     * // Get one SMSToken
+     * const sMSToken = await prisma.sMSToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SMSTokenFindFirstArgs>(args?: SelectSubset<T, SMSTokenFindFirstArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SMSToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenFindFirstOrThrowArgs} args - Arguments to find a SMSToken
+     * @example
+     * // Get one SMSToken
+     * const sMSToken = await prisma.sMSToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SMSTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, SMSTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SMSTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SMSTokens
+     * const sMSTokens = await prisma.sMSToken.findMany()
+     * 
+     * // Get first 10 SMSTokens
+     * const sMSTokens = await prisma.sMSToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sMSTokenWithIdOnly = await prisma.sMSToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SMSTokenFindManyArgs>(args?: SelectSubset<T, SMSTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SMSToken.
+     * @param {SMSTokenCreateArgs} args - Arguments to create a SMSToken.
+     * @example
+     * // Create one SMSToken
+     * const SMSToken = await prisma.sMSToken.create({
+     *   data: {
+     *     // ... data to create a SMSToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends SMSTokenCreateArgs>(args: SelectSubset<T, SMSTokenCreateArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SMSTokens.
+     * @param {SMSTokenCreateManyArgs} args - Arguments to create many SMSTokens.
+     * @example
+     * // Create many SMSTokens
+     * const sMSToken = await prisma.sMSToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SMSTokenCreateManyArgs>(args?: SelectSubset<T, SMSTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SMSTokens and returns the data saved in the database.
+     * @param {SMSTokenCreateManyAndReturnArgs} args - Arguments to create many SMSTokens.
+     * @example
+     * // Create many SMSTokens
+     * const sMSToken = await prisma.sMSToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SMSTokens and only return the `id`
+     * const sMSTokenWithIdOnly = await prisma.sMSToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SMSTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, SMSTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SMSToken.
+     * @param {SMSTokenDeleteArgs} args - Arguments to delete one SMSToken.
+     * @example
+     * // Delete one SMSToken
+     * const SMSToken = await prisma.sMSToken.delete({
+     *   where: {
+     *     // ... filter to delete one SMSToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SMSTokenDeleteArgs>(args: SelectSubset<T, SMSTokenDeleteArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SMSToken.
+     * @param {SMSTokenUpdateArgs} args - Arguments to update one SMSToken.
+     * @example
+     * // Update one SMSToken
+     * const sMSToken = await prisma.sMSToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SMSTokenUpdateArgs>(args: SelectSubset<T, SMSTokenUpdateArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SMSTokens.
+     * @param {SMSTokenDeleteManyArgs} args - Arguments to filter SMSTokens to delete.
+     * @example
+     * // Delete a few SMSTokens
+     * const { count } = await prisma.sMSToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SMSTokenDeleteManyArgs>(args?: SelectSubset<T, SMSTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SMSTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SMSTokens
+     * const sMSToken = await prisma.sMSToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SMSTokenUpdateManyArgs>(args: SelectSubset<T, SMSTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SMSTokens and returns the data updated in the database.
+     * @param {SMSTokenUpdateManyAndReturnArgs} args - Arguments to update many SMSTokens.
+     * @example
+     * // Update many SMSTokens
+     * const sMSToken = await prisma.sMSToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SMSTokens and only return the `id`
+     * const sMSTokenWithIdOnly = await prisma.sMSToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SMSTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, SMSTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SMSToken.
+     * @param {SMSTokenUpsertArgs} args - Arguments to update or create a SMSToken.
+     * @example
+     * // Update or create a SMSToken
+     * const sMSToken = await prisma.sMSToken.upsert({
+     *   create: {
+     *     // ... data to create a SMSToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SMSToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SMSTokenUpsertArgs>(args: SelectSubset<T, SMSTokenUpsertArgs<ExtArgs>>): Prisma__SMSTokenClient<$Result.GetResult<Prisma.$SMSTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SMSTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenCountArgs} args - Arguments to filter SMSTokens to count.
+     * @example
+     * // Count the number of SMSTokens
+     * const count = await prisma.sMSToken.count({
+     *   where: {
+     *     // ... the filter for the SMSTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends SMSTokenCountArgs>(
+      args?: Subset<T, SMSTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SMSTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SMSToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SMSTokenAggregateArgs>(args: Subset<T, SMSTokenAggregateArgs>): Prisma.PrismaPromise<GetSMSTokenAggregateType<T>>
+
+    /**
+     * Group by SMSToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SMSTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SMSTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SMSTokenGroupByArgs['orderBy'] }
+        : { orderBy?: SMSTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SMSTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSMSTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SMSToken model
+   */
+  readonly fields: SMSTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SMSToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SMSTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SMSToken model
+   */
+  interface SMSTokenFieldRefs {
+    readonly id: FieldRef<"SMSToken", 'Int'>
+    readonly token: FieldRef<"SMSToken", 'String'>
+    readonly created_at: FieldRef<"SMSToken", 'DateTime'>
+    readonly updated_at: FieldRef<"SMSToken", 'DateTime'>
+    readonly userId: FieldRef<"SMSToken", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SMSToken findUnique
+   */
+  export type SMSTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which SMSToken to fetch.
+     */
+    where: SMSTokenWhereUniqueInput
+  }
+
+  /**
+   * SMSToken findUniqueOrThrow
+   */
+  export type SMSTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which SMSToken to fetch.
+     */
+    where: SMSTokenWhereUniqueInput
+  }
+
+  /**
+   * SMSToken findFirst
+   */
+  export type SMSTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which SMSToken to fetch.
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SMSTokens to fetch.
+     */
+    orderBy?: SMSTokenOrderByWithRelationInput | SMSTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SMSTokens.
+     */
+    cursor?: SMSTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SMSTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SMSTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SMSTokens.
+     */
+    distinct?: SMSTokenScalarFieldEnum | SMSTokenScalarFieldEnum[]
+  }
+
+  /**
+   * SMSToken findFirstOrThrow
+   */
+  export type SMSTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which SMSToken to fetch.
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SMSTokens to fetch.
+     */
+    orderBy?: SMSTokenOrderByWithRelationInput | SMSTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SMSTokens.
+     */
+    cursor?: SMSTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SMSTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SMSTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SMSTokens.
+     */
+    distinct?: SMSTokenScalarFieldEnum | SMSTokenScalarFieldEnum[]
+  }
+
+  /**
+   * SMSToken findMany
+   */
+  export type SMSTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which SMSTokens to fetch.
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SMSTokens to fetch.
+     */
+    orderBy?: SMSTokenOrderByWithRelationInput | SMSTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SMSTokens.
+     */
+    cursor?: SMSTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SMSTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SMSTokens.
+     */
+    skip?: number
+    distinct?: SMSTokenScalarFieldEnum | SMSTokenScalarFieldEnum[]
+  }
+
+  /**
+   * SMSToken create
+   */
+  export type SMSTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SMSToken.
+     */
+    data: XOR<SMSTokenCreateInput, SMSTokenUncheckedCreateInput>
+  }
+
+  /**
+   * SMSToken createMany
+   */
+  export type SMSTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SMSTokens.
+     */
+    data: SMSTokenCreateManyInput | SMSTokenCreateManyInput[]
+  }
+
+  /**
+   * SMSToken createManyAndReturn
+   */
+  export type SMSTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many SMSTokens.
+     */
+    data: SMSTokenCreateManyInput | SMSTokenCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SMSToken update
+   */
+  export type SMSTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SMSToken.
+     */
+    data: XOR<SMSTokenUpdateInput, SMSTokenUncheckedUpdateInput>
+    /**
+     * Choose, which SMSToken to update.
+     */
+    where: SMSTokenWhereUniqueInput
+  }
+
+  /**
+   * SMSToken updateMany
+   */
+  export type SMSTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SMSTokens.
+     */
+    data: XOR<SMSTokenUpdateManyMutationInput, SMSTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which SMSTokens to update
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * Limit how many SMSTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SMSToken updateManyAndReturn
+   */
+  export type SMSTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update SMSTokens.
+     */
+    data: XOR<SMSTokenUpdateManyMutationInput, SMSTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which SMSTokens to update
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * Limit how many SMSTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SMSToken upsert
+   */
+  export type SMSTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SMSToken to update in case it exists.
+     */
+    where: SMSTokenWhereUniqueInput
+    /**
+     * In case the SMSToken found by the `where` argument doesn't exist, create a new SMSToken with this data.
+     */
+    create: XOR<SMSTokenCreateInput, SMSTokenUncheckedCreateInput>
+    /**
+     * In case the SMSToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SMSTokenUpdateInput, SMSTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * SMSToken delete
+   */
+  export type SMSTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
+    /**
+     * Filter which SMSToken to delete.
+     */
+    where: SMSTokenWhereUniqueInput
+  }
+
+  /**
+   * SMSToken deleteMany
+   */
+  export type SMSTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SMSTokens to delete
+     */
+    where?: SMSTokenWhereInput
+    /**
+     * Limit how many SMSTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SMSToken without action
+   */
+  export type SMSTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SMSToken
+     */
+    select?: SMSTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SMSToken
+     */
+    omit?: SMSTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SMSTokenInclude<ExtArgs> | null
   }
 
 
@@ -1972,6 +3262,17 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const SMSTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    userId: 'userId'
+  };
+
+  export type SMSTokenScalarFieldEnum = (typeof SMSTokenScalarFieldEnum)[keyof typeof SMSTokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2039,6 +3340,7 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
+    SMSToken?: SMSTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2051,6 +3353,7 @@ export namespace Prisma {
     avatar?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    SMSToken?: SMSTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -2066,6 +3369,7 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
+    SMSToken?: SMSTokenListRelationFilter
   }, "id" | "username" | "email" | "phone" | "github_id">
 
   export type UserOrderByWithAggregationInput = {
@@ -2100,6 +3404,63 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type SMSTokenWhereInput = {
+    AND?: SMSTokenWhereInput | SMSTokenWhereInput[]
+    OR?: SMSTokenWhereInput[]
+    NOT?: SMSTokenWhereInput | SMSTokenWhereInput[]
+    id?: IntFilter<"SMSToken"> | number
+    token?: StringFilter<"SMSToken"> | string
+    created_at?: DateTimeFilter<"SMSToken"> | Date | string
+    updated_at?: DateTimeFilter<"SMSToken"> | Date | string
+    userId?: IntFilter<"SMSToken"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SMSTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SMSTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    token?: string
+    AND?: SMSTokenWhereInput | SMSTokenWhereInput[]
+    OR?: SMSTokenWhereInput[]
+    NOT?: SMSTokenWhereInput | SMSTokenWhereInput[]
+    created_at?: DateTimeFilter<"SMSToken"> | Date | string
+    updated_at?: DateTimeFilter<"SMSToken"> | Date | string
+    userId?: IntFilter<"SMSToken"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type SMSTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    userId?: SortOrder
+    _count?: SMSTokenCountOrderByAggregateInput
+    _avg?: SMSTokenAvgOrderByAggregateInput
+    _max?: SMSTokenMaxOrderByAggregateInput
+    _min?: SMSTokenMinOrderByAggregateInput
+    _sum?: SMSTokenSumOrderByAggregateInput
+  }
+
+  export type SMSTokenScalarWhereWithAggregatesInput = {
+    AND?: SMSTokenScalarWhereWithAggregatesInput | SMSTokenScalarWhereWithAggregatesInput[]
+    OR?: SMSTokenScalarWhereWithAggregatesInput[]
+    NOT?: SMSTokenScalarWhereWithAggregatesInput | SMSTokenScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SMSToken"> | number
+    token?: StringWithAggregatesFilter<"SMSToken"> | string
+    created_at?: DateTimeWithAggregatesFilter<"SMSToken"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"SMSToken"> | Date | string
+    userId?: IntWithAggregatesFilter<"SMSToken"> | number
+  }
+
   export type UserCreateInput = {
     username: string
     email?: string | null
@@ -2109,6 +3470,7 @@ export namespace Prisma {
     avatar?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    SMSToken?: SMSTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2121,6 +3483,7 @@ export namespace Prisma {
     avatar?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    SMSToken?: SMSTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -2132,6 +3495,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    SMSToken?: SMSTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2144,6 +3508,7 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    SMSToken?: SMSTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2179,6 +3544,58 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SMSTokenCreateInput = {
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutSMSTokenInput
+  }
+
+  export type SMSTokenUncheckedCreateInput = {
+    id?: number
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    userId: number
+  }
+
+  export type SMSTokenUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSMSTokenNestedInput
+  }
+
+  export type SMSTokenUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SMSTokenCreateManyInput = {
+    id?: number
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    userId: number
+  }
+
+  export type SMSTokenUpdateManyMutationInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SMSTokenUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2231,9 +3648,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type SMSTokenListRelationFilter = {
+    every?: SMSTokenWhereInput
+    some?: SMSTokenWhereInput
+    none?: SMSTokenWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type SMSTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -2344,6 +3771,59 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type SMSTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SMSTokenAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SMSTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SMSTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SMSTokenSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SMSTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput> | SMSTokenCreateWithoutUserInput[] | SMSTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SMSTokenCreateOrConnectWithoutUserInput | SMSTokenCreateOrConnectWithoutUserInput[]
+    createMany?: SMSTokenCreateManyUserInputEnvelope
+    connect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+  }
+
+  export type SMSTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput> | SMSTokenCreateWithoutUserInput[] | SMSTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SMSTokenCreateOrConnectWithoutUserInput | SMSTokenCreateOrConnectWithoutUserInput[]
+    createMany?: SMSTokenCreateManyUserInputEnvelope
+    connect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2356,12 +3836,54 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type SMSTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput> | SMSTokenCreateWithoutUserInput[] | SMSTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SMSTokenCreateOrConnectWithoutUserInput | SMSTokenCreateOrConnectWithoutUserInput[]
+    upsert?: SMSTokenUpsertWithWhereUniqueWithoutUserInput | SMSTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SMSTokenCreateManyUserInputEnvelope
+    set?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    disconnect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    delete?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    connect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    update?: SMSTokenUpdateWithWhereUniqueWithoutUserInput | SMSTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SMSTokenUpdateManyWithWhereWithoutUserInput | SMSTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SMSTokenScalarWhereInput | SMSTokenScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type SMSTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput> | SMSTokenCreateWithoutUserInput[] | SMSTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SMSTokenCreateOrConnectWithoutUserInput | SMSTokenCreateOrConnectWithoutUserInput[]
+    upsert?: SMSTokenUpsertWithWhereUniqueWithoutUserInput | SMSTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SMSTokenCreateManyUserInputEnvelope
+    set?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    disconnect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    delete?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    connect?: SMSTokenWhereUniqueInput | SMSTokenWhereUniqueInput[]
+    update?: SMSTokenUpdateWithWhereUniqueWithoutUserInput | SMSTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SMSTokenUpdateManyWithWhereWithoutUserInput | SMSTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SMSTokenScalarWhereInput | SMSTokenScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSMSTokenInput = {
+    create?: XOR<UserCreateWithoutSMSTokenInput, UserUncheckedCreateWithoutSMSTokenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSMSTokenInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSMSTokenNestedInput = {
+    create?: XOR<UserCreateWithoutSMSTokenInput, UserUncheckedCreateWithoutSMSTokenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSMSTokenInput
+    upsert?: UserUpsertWithoutSMSTokenInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSMSTokenInput, UserUpdateWithoutSMSTokenInput>, UserUncheckedUpdateWithoutSMSTokenInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2498,6 +4020,144 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SMSTokenCreateWithoutUserInput = {
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SMSTokenUncheckedCreateWithoutUserInput = {
+    id?: number
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SMSTokenCreateOrConnectWithoutUserInput = {
+    where: SMSTokenWhereUniqueInput
+    create: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type SMSTokenCreateManyUserInputEnvelope = {
+    data: SMSTokenCreateManyUserInput | SMSTokenCreateManyUserInput[]
+  }
+
+  export type SMSTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: SMSTokenWhereUniqueInput
+    update: XOR<SMSTokenUpdateWithoutUserInput, SMSTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<SMSTokenCreateWithoutUserInput, SMSTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type SMSTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: SMSTokenWhereUniqueInput
+    data: XOR<SMSTokenUpdateWithoutUserInput, SMSTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SMSTokenUpdateManyWithWhereWithoutUserInput = {
+    where: SMSTokenScalarWhereInput
+    data: XOR<SMSTokenUpdateManyMutationInput, SMSTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SMSTokenScalarWhereInput = {
+    AND?: SMSTokenScalarWhereInput | SMSTokenScalarWhereInput[]
+    OR?: SMSTokenScalarWhereInput[]
+    NOT?: SMSTokenScalarWhereInput | SMSTokenScalarWhereInput[]
+    id?: IntFilter<"SMSToken"> | number
+    token?: StringFilter<"SMSToken"> | string
+    created_at?: DateTimeFilter<"SMSToken"> | Date | string
+    updated_at?: DateTimeFilter<"SMSToken"> | Date | string
+    userId?: IntFilter<"SMSToken"> | number
+  }
+
+  export type UserCreateWithoutSMSTokenInput = {
+    username: string
+    email?: string | null
+    password?: string | null
+    phone?: string | null
+    github_id?: string | null
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutSMSTokenInput = {
+    id?: number
+    username: string
+    email?: string | null
+    password?: string | null
+    phone?: string | null
+    github_id?: string | null
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutSMSTokenInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSMSTokenInput, UserUncheckedCreateWithoutSMSTokenInput>
+  }
+
+  export type UserUpsertWithoutSMSTokenInput = {
+    update: XOR<UserUpdateWithoutSMSTokenInput, UserUncheckedUpdateWithoutSMSTokenInput>
+    create: XOR<UserCreateWithoutSMSTokenInput, UserUncheckedCreateWithoutSMSTokenInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSMSTokenInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSMSTokenInput, UserUncheckedUpdateWithoutSMSTokenInput>
+  }
+
+  export type UserUpdateWithoutSMSTokenInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    github_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutSMSTokenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    github_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SMSTokenCreateManyUserInput = {
+    id?: number
+    token: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SMSTokenUpdateWithoutUserInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SMSTokenUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SMSTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
